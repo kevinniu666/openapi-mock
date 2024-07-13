@@ -1,0 +1,35 @@
+# This workflow will build a golang project
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-go
+
+name: Build and Push image to aliyun 
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Go
+      uses: actions/setup-go@v4
+      with:
+        go-version: '1.20'
+
+    - name: Build
+      run: go build -o app main.go
+
+    - uses: mr-smithers-excellent/docker-build-push@v6
+      name: Build & push Docker image
+      with:
+        image: dockerforkevin/openapi-mock
+        tags: v1, latest
+        registry: registry.cn-hangzhou.aliyuncs.com
+        dockerfile: Dockerfile
+        username: ${{ secrets.ALI_REPOSITORY_USER_NAME }}
+        password: ${{ secrets.ALI_REPOSITORY_PASSWORD }}
