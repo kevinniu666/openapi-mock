@@ -31,5 +31,5 @@ jobs:
         tags: v1, latest
         registry: registry.cn-hangzhou.aliyuncs.com
         dockerfile: Dockerfile
-        username: ${{ secrets.ALI_REPOSITORY_USER_NAME }}
-        password: ${{ secrets.ALI_REPOSITORY_PASSWORD }}
+        username: ${{ secrets.ALI_DOCKER_REPOSITORY_PASSWORD }}
+        password: ${{ secrets.ALI_DOCKER_REPOSITORY_USER_NAME }}
